@@ -8,7 +8,6 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Grid from '@mui/material/Grid';
 
 
-
 function App() {
   const darkTheme = createTheme({
     palette: {
@@ -33,7 +32,8 @@ function App() {
 </Button>
 
      </div>
-     <Grid container spacing={2}>
+
+<Grid container spacing={2}>
   <Grid item xs={3}>
   <ConcertTile/>
   </Grid>
@@ -50,6 +50,7 @@ function App() {
   <ConcertTile/>
   </Grid>
 </Grid>
+
     </div>
     </ThemeProvider>
   );

@@ -53,7 +53,7 @@ export default function ConcertTile() {
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image="https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg"
         alt="Thumnail Image"
       />
       <CardActions disableSpacing>

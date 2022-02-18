@@ -1,3 +1,5 @@
+# https://docs.google.com/presentation/d/1fEVKCSQYv9zqxdJPVHL_iqi5JJ7Ic6LkXtfRxE3M034/edit?usp=sharing
+
 # Instructions, important!
 - You NEED to install Git (https://git-scm.com/downloads)
 - You NEED to install GitHub Desktop (https://desktop.github.com/)
