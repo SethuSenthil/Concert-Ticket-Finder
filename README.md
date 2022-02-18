@@ -9,22 +9,22 @@
 
 
 # Opening the Project
-- U gotta do this to run the project
-- Open each, the backend folder and the front end folder seprently in VS code (as if they two different projects)
+- You gotta do this to run the project
+- Open the backend folder and the front end folder seperately in VS code (as if they two different projects)
 
 # Backend (Server)
-- Open folder sepreatly in vs code
-- This is written in python so u probably know whats up,
-- To intsall the modules run the following commands
-- Launch the VS code terminal (if u dont know how check this, its like 1 keyboard shortcut, https://code.visualstudio.com/docs/editor/integrated-terminal)
-- - then run `venv/bin/activate`
+- Open folder seperately in VS code
+- This is written in python so you probably know whats up,
+- To install the modules run the following commands
+- Launch the VS code terminal (If you dont know how check this, its like 1 keyboard shortcut, https://code.visualstudio.com/docs/editor/integrated-terminal)
+- - Then run `venv/bin/activate`
 - - Now run `pip install -r requirements.txt`
 - - now run `export FLASK_APP=main`
 - - now run `flask run`
 - - Now it should give u a link u can click on
 
 # Frontend (React JS)
-- Open folder sepreatly in vs code
+- Open folder seperately in vs code
 - Launch the VS code terminal (if u dont know how check this, its like 1 keyboard shortcut, https://code.visualstudio.com/docs/editor/integrated-terminal)
 - - then run `npm i`
 - - after thats done (it may take a while the first time)
