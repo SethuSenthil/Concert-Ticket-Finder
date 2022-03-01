@@ -6,9 +6,15 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Grid from '@mui/material/Grid';
+import * as React from 'react';
+import {useState, useEffect} from 'react';
 
 
 function App() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
+
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -20,6 +26,23 @@ function App() {
       },
     },
   });
+  useEffect(() => {
+    fetch("http://localhost:4566/getHomeEvents")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result.events);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
   return (
     <ThemeProvider theme={darkTheme}>
     <div className="App">

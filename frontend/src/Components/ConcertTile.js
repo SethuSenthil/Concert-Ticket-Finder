@@ -27,7 +27,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function ConcertTile() {
+export default function ConcertTile(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -47,13 +47,13 @@ export default function ConcertTile() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Artist Name"
-        subheader="Date"
+        title={props.artistName}
+        subheader={props.consertDate}
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg"
+        image={props.consertImage}
         alt="Thumnail Image"
       />
       <CardActions disableSpacing>
@@ -72,4 +72,10 @@ export default function ConcertTile() {
       </CardActions>
     </Card>
   );
+}
+
+ConcertTile.defaultProps = {
+  artistName: "Artist Name",
+  consertDate: "00/00/0000",
+  consertImage: "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",
 }
