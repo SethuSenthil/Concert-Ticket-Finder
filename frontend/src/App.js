@@ -8,6 +8,13 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Grid from '@mui/material/Grid';
 import * as React from 'react';
 import {useState, useEffect} from 'react';
+import Constants from './Constants';
+
+function parseDate(timestamp){
+  const d = new Date(timestamp)
+  var currentMonth = d.toDateString().split(' ')[1];
+  return currentMonth + ' ' +  d.getDate();
+}
 
 
 function App() {
@@ -27,7 +34,7 @@ function App() {
     },
   });
   useEffect(() => {
-    fetch("http://localhost:4566/getHomeEvents")
+    fetch(Constants.endpoint() + '/getHomeEvents')
       .then(res => res.json())
       .then(
         (result) => {
@@ -59,7 +66,7 @@ function App() {
 <Grid container spacing={2}>
         {items.map(item => (
             <Grid item xs={3}>
-              <ConcertTile title={item.short_title} concertDate={item.datetime_utc} concertImage={item.performers[0].image} price={item.stats.lowest_price}/>
+              <ConcertTile title={item.short_title} concertDate={parseDate(item.datetime_utc)} concertImage={item.performers[0].image} price={item.stats.lowest_price}/>
             </Grid>
           ))}
 </Grid>
