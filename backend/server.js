@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/getHomeEvents', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   var options = {
     method: 'GET',
     url: `https://api.seatgeek.com/2/events?${AUTH_STRING}postal_code=${'19001'}&q=rap`,

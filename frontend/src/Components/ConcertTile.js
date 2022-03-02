@@ -15,6 +15,8 @@ import BuyNow from '@mui/icons-material/ShoppingCartCheckout';
 import Place from '@mui/icons-material/Place';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Button from '@mui/material/Button';
+import CountUp from 'react-countup';
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -47,18 +49,18 @@ export default function ConcertTile(props) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.artistName}
-        subheader={props.consertDate}
+        title={props.title}
+        subheader={props.concertDate}
       />
       <CardMedia
         component="img"
         height="194"
-        image={props.consertImage}
+        image={props.concertImage}
         alt="Thumnail Image"
       />
       <CardActions disableSpacing>
         <IconButton aria-label="price">
-          <AttachMoney /> <Typography variant="caption">000</Typography>
+          <AttachMoney /> <Typography variant="caption">{props.price == null ? "TBD" : <CountUp end={props.price} duration={1.5}/>}</Typography>
         </IconButton>
 
         <IconButton aria-label="location">
@@ -75,7 +77,8 @@ export default function ConcertTile(props) {
 }
 
 ConcertTile.defaultProps = {
-  artistName: "Artist Name",
-  consertDate: "00/00/0000",
-  consertImage: "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",
+  title: "Title",
+  concertDate: "TBD",
+  price: null,
+  concertImage: "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",
 }

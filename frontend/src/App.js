@@ -57,21 +57,11 @@ function App() {
      </div>
 
 <Grid container spacing={2}>
-  <Grid item xs={3}>
-  <ConcertTile/>
-  </Grid>
-  <Grid item xs={3}>
-  <ConcertTile/>
-  </Grid>
-  <Grid item xs={3}>
-  <ConcertTile/>
-  </Grid>
-  <Grid item xs={3}>
-  <ConcertTile/>
-  </Grid>
-  <Grid item xs={3}>
-  <ConcertTile/>
-  </Grid>
+        {items.map(item => (
+            <Grid item xs={3}>
+              <ConcertTile title={item.short_title} concertDate={item.datetime_utc} concertImage={item.performers[0].image} price={item.stats.lowest_price}/>
+            </Grid>
+          ))}
 </Grid>
 
     </div>
