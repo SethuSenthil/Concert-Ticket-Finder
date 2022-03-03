@@ -36,6 +36,21 @@ export default function ConcertTile(props) {
     setExpanded(!expanded);
   };
 
+  function distance() {
+    let lat1 = props.userLat
+    let lon1 = props.userLon
+    let lat2 = props.venueLat
+    let lon2 = props.venueLon
+
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p)/2 +
+            c(lat1 * p) * c(lat2 * p) *
+            (1 - c((lon2 - lon1) * p))/2;
+
+    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+  }
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -63,9 +78,11 @@ export default function ConcertTile(props) {
           <AttachMoney /> <Typography variant="caption">{props.price == null ? "TBD" : <CountUp end={props.price} duration={1.5}/>}</Typography>
         </IconButton>
 
-        <IconButton aria-label="location">
+        <IconButton aria-label="location" onClick={()=>{
+          window.open(`https://www.google.com/maps/search/?api=1&query=${props.venueLat},${props.venueLon}`);
+        }}>
 
-          <Place /> <Typography variant="caption">NJ</Typography>
+          <Place /> <Typography variant="caption">Near</Typography>
         </IconButton>
 
         <Button variant="outlined" startIcon={<BuyNow />}>
@@ -80,5 +97,9 @@ ConcertTile.defaultProps = {
   title: "Title",
   concertDate: "TBD",
   price: null,
+  userLat: 0,
+  userLon: 0,
+  venueLat: 0,
+  venueLon: 0,
   concertImage: "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",
 }

@@ -16,11 +16,11 @@ function parseDate(timestamp){
   return currentMonth + ' ' +  d.getDate();
 }
 
-
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
+  const [geolocation, setGeolocation] = useState({lat: 0, lng: 0});
 
   const darkTheme = createTheme({
     palette: {
@@ -49,6 +49,12 @@ function App() {
           setError(error);
         }
       )
+
+      navigator.geolocation.getCurrentPosition(function(position) {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        setGeolocation({lat: lat, lng: long});
+      });
   }, [])
   return (
     <ThemeProvider theme={darkTheme}>
@@ -66,7 +72,7 @@ function App() {
 <Grid container spacing={2}>
         {items.map(item => (
             <Grid item xs={3}>
-              <ConcertTile title={item.short_title} concertDate={parseDate(item.datetime_utc)} concertImage={item.performers[0].image} price={item.stats.lowest_price}/>
+              <ConcertTile title={item.short_title} concertDate={parseDate(item.datetime_utc)} concertImage={item.performers[0].image} price={item.stats.lowest_price} userLat={geolocation.lat} userLon={geolocation.long} venueLat={item.venue.location.lat} venueLon={item.venue.location.lon}/>
             </Grid>
           ))}
 </Grid>
