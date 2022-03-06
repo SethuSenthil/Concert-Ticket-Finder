@@ -1,6 +1,7 @@
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import NavBar from './Components/NavBar';
+import Footer from './Components/Footer';
 import ConcertTile from './Components/ConcertTile';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,6 +10,11 @@ import Grid from '@mui/material/Grid';
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import Constants from './Constants';
+import InputAdornment from '@mui/material/InputAdornment';
+import GpsFixed from '@mui/icons-material/GpsFixed';
+import Typography from '@mui/material/Typography';
+
+
 
 function parseDate(timestamp){
   const d = new Date(timestamp)
@@ -20,7 +26,11 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
-  const [geolocation, setGeolocation] = useState({lat: 0, lng: 0});
+  const [geolocation, setGeolocation] = useState({lat: 0, lng: 0, zip: null});
+  const [zipCode, setZipCode] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [searchResultStats, setSearchResultStats] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
   const darkTheme = createTheme({
     palette: {
@@ -33,17 +43,64 @@ function App() {
       },
     },
   });
+
+  const onAllFetch = (result) => {
+    setIsLoaded(true);
+          setItems(result.events);
+          setSearchResultStats(`${result.meta.total} results in ${result.meta.took/100} seconds`);
+  }
+
+  const fetchEvents = (settings) => {
+    if (settings == null){
+      settings = {}
+    }
+
+    if(settings.page == null){
+      settings.page = 1
+      setCurrentPage(1)
+    }
+
+    if(settings.page === 'next'){
+      settings.page = currentPage + 1
+    }
+
+    const body = {
+       'postal_code': zipCode,
+       'q': searchInput,
+       'page': settings.page,
+       'per_page': 25,
+    }
+    //alert(JSON.stringify(body))
+    fetch(Constants.endpoint() + '/getEvents', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        if(settings.page === 'next'){
+          setItems(items.concat(result.events));
+        }else{
+          setItems(result.events);
+        }
+        setIsLoaded(true);
+        setSearchResultStats(`${result.meta.total} results in ${result.meta.took/100} seconds`);
+      },
+      (error) => {
+        setIsLoaded(true);
+        setError(error);
+      }
+    )
+  }
+
   useEffect(() => {
     fetch(Constants.endpoint() + '/getHomeEvents')
       .then(res => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
-          setItems(result.events);
+          onAllFetch(result)
+          setZipCode(result.meta.geolocation.postal_code);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -56,18 +113,55 @@ function App() {
         setGeolocation({lat: lat, lng: long});
       });
   }, [])
+
+  const handleZipCodeChange = (e) => {
+    setZipCode(e.target.value);
+  }
+
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  }
+
+  const handleZipCodeSubmit = (e) => {
+    //TODO: Check if zip code is valid
+      if (e.key === 'Enter') {
+        setZipCode(e.target.value);
+        fetchEvents();
+      }
+  }
+
+  const handleSearchInputSubmit = (e) => {
+    //TODO: Check if search input is valid
+    if (e.key === 'Enter') {
+      setSearchInput(e.target.value);
+      fetchEvents();
+    }
+  }
+
   return (
     <ThemeProvider theme={darkTheme}>
     <div className="App">
      <NavBar/>
      <div style={{display: 'flex', flexDirection: 'row', margin: 20}}>
-      <TextField id="filled-basic" label="Search" variant="filled" fullWidth/>
+      <TextField id="filled-basic" label="Search" variant="filled" fullWidth value={searchInput} onChange={handleSearchInputChange} onKeyPress={handleSearchInputSubmit}/>
+      &nbsp; &nbsp;
+      <TextField id="filled-basic" label="ZIP" variant="filled" width={50} value={zipCode} onChange={handleZipCodeChange} onKeyPress={handleZipCodeSubmit} InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <GpsFixed />
+            </InputAdornment>
+          ),
+        }}/>
       &nbsp; &nbsp;
       <Button variant="outlined" startIcon={<FilterListIcon />}>
   Filter
 </Button>
 
      </div>
+
+<Typography variant="subtitle1" gutterBottom component="div" color="primary">
+        {searchResultStats}
+ </Typography>
 
 <Grid container spacing={2}>
         {items.map(item => (
@@ -76,6 +170,18 @@ function App() {
             </Grid>
           ))}
 </Grid>
+
+<br/>
+
+<Button variant="outlined" onClick={() => {
+  fetchEvents({page: 'next'})
+}}>
+  Load More
+</Button>
+
+<br/>
+
+<Footer/>
 
     </div>
     </ThemeProvider>
