@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 4566
+const port = process.env.PORT || 4566
 const axios = require("axios").default;
 require('dotenv').config()
 
