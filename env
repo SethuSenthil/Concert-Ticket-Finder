@@ -1,0 +1,3 @@
+#make file name env -> .env (dot env)
+CLIENT_ID=PASTE_HERE
+CLIENT_SECRET=PASTE_HERE
