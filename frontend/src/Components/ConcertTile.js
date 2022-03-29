@@ -80,15 +80,14 @@ export default function ConcertTile(props) {
           <AttachMoney /> <Typography variant="caption">{props.price == null ? "TBD" : <CountUp end={props.price} duration={1.5}/>}</Typography>
         </IconButton>
 
-        <IconButton aria-label="uber" onClick={()=>{
+        <IconButton aria-label="uber"  onClick={()=>{
          window.open('https://m.uber.com/ul/' + `?action=setPickup&dropoff[latitude]=${props.venueLat}&dropoff[longitude]=${props.venueLon}`)
         }}>
-          <FontAwesomeIcon icon={faUber} />
+          <FontAwesomeIcon icon={faUber}/>
         </IconButton>
 
         <IconButton aria-label="location" onClick={()=>{
-         // window.open(`https://www.google.com/maps/search/?api=1&query=${props.venueLat},${props.venueLon}`);
-         window.open('https://m.uber.com/ul/' + `?action=setPickup&dropoff[latitude]=${props.venueLat}&dropoff[longitude]=${props.venueLon}`)
+         window.open(`https://www.google.com/maps/search/?api=1&query=${props.venueLat},${props.venueLon}`);
         }}>
 
           <Place /> <Typography variant="caption">Near</Typography>
