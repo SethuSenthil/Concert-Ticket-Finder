@@ -13,6 +13,8 @@ import Constants from './Constants';
 import InputAdornment from '@mui/material/InputAdornment';
 import GpsFixed from '@mui/icons-material/GpsFixed';
 import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 
 
 
@@ -31,6 +33,8 @@ function App() {
   const [searchInput, setSearchInput] = useState('');
   const [searchResultStats, setSearchResultStats] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [filterControls, setFilterControls] = React.useState(false);
+
 
   const darkTheme = createTheme({
     palette: {
@@ -153,9 +157,38 @@ function App() {
           ),
         }}/>
       &nbsp; &nbsp;
-      <Button variant="outlined" startIcon={<FilterListIcon />}>
+      <Button variant="outlined" startIcon={<FilterListIcon /> } onClick={() => {setFilterControls(true)}}>
   Filter
 </Button>
+
+<Modal
+        open={filterControls}
+        onClose={() => {setFilterControls(false)}}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" color="white">
+            Filters and Sorting
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} color="white">
+            Radius from ZIP (Miles):
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} color="white">
+            Radius from ZIP (Miles):
+          </Typography>
+        </Box>
+      </Modal>
 
      </div>
 
