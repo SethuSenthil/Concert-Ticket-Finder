@@ -57,8 +57,8 @@ export default function ConcertTile(props) {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="music">
+            ♫
           </Avatar>
         }
         action={
@@ -93,7 +93,9 @@ export default function ConcertTile(props) {
           <Place /> <Typography variant="caption">Near</Typography>
         </IconButton>
 
-        <Button variant="outlined" startIcon={<BuyNow />}>
+        <Button variant="outlined" startIcon={<BuyNow />}  onClick={()=>{
+          window.open(props.buyLink);
+        }}>
         Buy
       </Button>
       </CardActions>
@@ -105,9 +107,11 @@ ConcertTile.defaultProps = {
   title: "Title",
   concertDate: "TBD",
   price: null,
+  editorsChoice: false,
   userLat: 0,
   userLon: 0,
   venueLat: 0,
   venueLon: 0,
   concertImage: "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",
+  buyLink: "",
 }

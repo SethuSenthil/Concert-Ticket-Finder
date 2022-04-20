@@ -1,0 +1,15 @@
+Instructions (this isnt code, jus a guide)
+editors.json is just an array of deals chosen by us manually and
+
+here is the template (it should already be pasted in the file)
+{
+    "title": "Title", <-- title of the concert (usually had the singers names in it)
+    "concertDate": "TBD", <-- self explanatory
+    "price": null, <-- self explanatory
+    "editorsChoice": true, <-- do not chase this
+    "venueLat": 0, <-- optional
+    "venueLon": 0, <-- optional
+    "concertImage": "https://d1e00ek4ebabms.cloudfront.net/production/c108ede0-4538-4ad5-82bf-59e133a0f9a5.jpg",  <-- image of the artist or something revelent
+    "buyLink": "" <-- the link where people can buy the ticket
+},
+

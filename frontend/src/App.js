@@ -166,7 +166,7 @@ function App() {
 <Grid container spacing={2}>
         {items.map(item => (
             <Grid item xs={3}>
-              <ConcertTile title={item.short_title} concertDate={parseDate(item.datetime_utc)} concertImage={item.performers[0].image} price={item.stats.lowest_price} userLat={geolocation.lat} userLon={geolocation.long} venueLat={item.venue.location.lat} venueLon={item.venue.location.lon}/>
+              <ConcertTile title={item.short_title} concertDate={parseDate(item.datetime_utc)} concertImage={item.performers[0].image} price={item.stats.lowest_price} userLat={geolocation.lat} userLon={geolocation.long} venueLat={item.venue.location.lat} venueLon={item.venue.location.lon} buyLink={item.url}/>
             </Grid>
           ))}
 </Grid>
