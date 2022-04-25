@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 4566
 const axios = require("axios").default;
+const wiki = require('wikijs').default
+const youtube = require('scrape-youtube')
+
 require('dotenv').config()
 
 app.set('trust proxy', true) //to get use up
@@ -69,6 +72,46 @@ app.post('/getEvents', (req, res) => {
     console.log('error')
   });
 })
+
+app.get('/getArtistSummary/:artist', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  const artist = req.params.artist
+  console.log('artist', artist)
+
+  youtube.search(artist + ' concert').then((results) => {
+    // Unless you specify a custom type you will only receive 'video' results
+    console.log(results.videos);
+  wiki()
+	.page(artist)
+	.then(page => page.images())
+	.then((imgres) =>{
+       console.log(imgres);
+       let filtered = []
+
+       imgres.forEach(img => {
+         if(!img.includes('/en/') && !img.includes('.svg')){
+           filtered.push(img)
+         }
+       });
+
+
+       wiki()
+       .page(artist)
+       .then(page => page.summary())
+       .then((reser) =>{
+           let obj = {
+             artist: artist,
+             summary: reser,
+             images: filtered,
+             video: results.videos[0],
+           }
+            res.send(obj)
+         });
+     })
+    });
+  });
+
+
 
 app.listen(port, () => {
   console.log(`Server on port ${port}`)

@@ -3,6 +3,8 @@
     "axios": "^0.26.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "flatted": "^3.2.5"
+    "flatted": "^3.2.5",
+    "scrape-youtube": "^2.1.14",
+    "wikijs": "^6.3.3"
   }
 }
