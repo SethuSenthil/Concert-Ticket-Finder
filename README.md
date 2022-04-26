@@ -1,6 +1,11 @@
 # https://docs.google.com/presentation/d/11PcOemIp8wHmpXHjpDYKS0CsBnf0x65i65ok7gfXmFw/edit?usp=sharing
 
-# Instructions, important!
+Final Project for my [CMPS 132](https://github.com/SethuSenthil/CMPS-132) Class in Penn State eith Professor Ishtiaque
+
+## You can visit the public version at https://ticketfinder.sethusenthil.com/
+
+
+# Instructions, important (for my team members or other people who want to run the project themselves)!
 - You NEED to install Git (https://git-scm.com/downloads)
 - You NEED to install GitHub Desktop (https://desktop.github.com/)
 - You NEED to install and use Visual Studio Code (VS Code) to work on this project, I have configed the project for vs code already so yall dont need to worry about anything
